@@ -1,4 +1,4 @@
-package rpgbattle;
+package rpgbattle.model;
 
 import org.junit.jupiter.api.Test;
 

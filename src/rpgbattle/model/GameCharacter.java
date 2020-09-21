@@ -1,4 +1,4 @@
-package rpgbattle;
+package rpgbattle.model;
 
 import java.util.Random;
 
@@ -64,5 +64,14 @@ public class GameCharacter {
         } else {
             return false;
         }
+    }
+
+    public void recover() {
+        energy++;
+        hitPoints++;
+    }
+
+    public boolean isAlive() {
+        return hitPoints > 0;
     }
 }
