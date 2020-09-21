@@ -15,20 +15,20 @@ class GameCharacterTest {
         assertEquals(
             "Sally hit Marvin with a fireball for 15 points of damage",
             sally.attack(marvin));
-        assertEquals(3, sally.getMana());
+        assertEquals(3, sally.getEnergy());
         assertEquals(35, marvin.getHitPoints());
         assertEquals(100, sally.getHitPoints());
     }
 
     @Test
-    void fireballAttackNotEnoughMana() {
-        sally.useMana(5);
-        assertEquals(5, sally.getMana());
+    void fireballAttackNotEnoughEnergy() {
+        sally.useEnergy(5);
+        assertEquals(5, sally.getEnergy());
 
         assertEquals(
-            "Sally did not have enough mana for a fireball attack",
+            "Sally did not have enough energy for a fireball attack",
             sally.attack(marvin));
-        assertEquals(5, sally.getMana());
+        assertEquals(5, sally.getEnergy());
         assertEquals(50, marvin.getHitPoints());
         assertEquals(100, sally.getHitPoints());
     }
@@ -41,7 +41,7 @@ class GameCharacterTest {
         assertEquals(
             "Sally hit Marvin with a fireball for 15 points of damage",
             sally.attack(marvin));
-        assertEquals(3, sally.getMana());
+        assertEquals(3, sally.getEnergy());
         assertEquals(0, marvin.getHitPoints());
         assertEquals(100, sally.getHitPoints());
     }
