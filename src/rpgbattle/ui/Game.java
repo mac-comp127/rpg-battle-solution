@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import rpgbattle.model.Fireball;
 import rpgbattle.model.GameCharacter;
+import rpgbattle.model.Sword;
 import rpgbattle.model.Weapon;
 
 public class Game {
@@ -23,9 +25,9 @@ public class Game {
 
     private Game() {
         playerParty = new ArrayList<>();
-        playerParty.add(new GameCharacter("Scottie", 500, 0, new Weapon(10, 15, 0, 0)));
-        playerParty.add(new GameCharacter("President", 400, 40, new Weapon(0, 0, 100, 10)));
-        playerParty.add(new GameCharacter("Provost", 300, 0, new Weapon(20, 40, 0, 0)));
+        playerParty.add(new GameCharacter("Scottie", 500, 0, new Sword(10, 15)));
+        playerParty.add(new GameCharacter("President", 400, 40, new Fireball(100, 10)));
+        playerParty.add(new GameCharacter("Provost", 300, 0, new Sword(20, 40)));
 
         level = 0;
         enemyParty = List.of();  // empty list triggers immediate level-up when game begins
@@ -154,25 +156,23 @@ public class Game {
 
     private GameCharacter generateEnemy() {
         int minAttack = randInt(10, 15 + level * 2);
+        int energy = 0;
+        Weapon weapon;
         if (randInt(0, 5) == 0) {
-            return new GameCharacter(  // fireball attack
-                generateRandomName(),
-                randInt(10, 20 + level * 4),
-                10 + level * 2,
-                new Weapon(
-                    0, 0, 
-                    minAttack * 3,
-                    randInt(10, 20)));
+            energy = randInt(10, 20 + level * 4);
+            weapon = new Fireball(
+                minAttack * 3,
+                randInt(10, 20));
         } else {
-            return new GameCharacter(  // sword attack
-                generateRandomName(),
-                randInt(10, 20 + level * 4),
-                0,
-                new Weapon(
-                    minAttack,
-                    minAttack + randInt(0, level),
-                    0, 0));
+            weapon = new Sword(
+                minAttack,
+                minAttack + randInt(0, level));
         }
+        return new GameCharacter(
+            generateRandomName(),
+            randInt(10, 20 + level * 4),
+            energy,
+            weapon);
     }
 
     private String generateRandomName() {
