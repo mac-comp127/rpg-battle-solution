@@ -24,6 +24,18 @@ public class GameCharacter {
         this.fireballEnergyRequired = fireballEnergyRequired;
     }
 
+    public String getWeaponDescription() {
+        if (fireballDamage > 0) {
+            return "Fireball (" + fireballEnergyRequired + " ⚡️ → " + fireballDamage + " ☠️)";
+        } else {
+            if (swordMinDamage == swordMaxDamage ) {
+                return "Sword (" + swordMinDamage + " ☠️)";
+            } else {
+                return "Sword (" + swordMinDamage + "–" + swordMaxDamage + " ☠️)";
+            }
+        }
+    }
+
     public String attack(GameCharacter target) {
         if (fireballDamage > 0) {
             if (this.useEnergy(fireballEnergyRequired)) {
@@ -67,8 +79,10 @@ public class GameCharacter {
     }
 
     public void recover() {
-        energy++;
-        hitPoints++;
+        if (isAlive()) {
+            energy++;
+            hitPoints++;
+        }
     }
 
     public boolean isAlive() {
