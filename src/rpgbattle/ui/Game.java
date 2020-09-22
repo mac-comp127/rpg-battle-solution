@@ -21,8 +21,6 @@ public class Game {
     }
 
     private Game() {
-        // CanvasWindow canvas = new CanvasWindow(GAME_TITLE, 800, 600);
-
         playerParty = new ArrayList<>();
         playerParty.add(new GameCharacter("Scottie", 500, 0, 10, 15, 0, 0));
         playerParty.add(new GameCharacter("President", 400, 40, 0, 0, 100, 10));
@@ -72,17 +70,13 @@ public class Game {
 
         if (playersAliveInBothParties()) {
             showAttack(
-                selectRandom(enemyParty),
-                selectRandom(playerParty));
+                selectRandomCharacter(enemyParty),
+                selectRandomCharacter(playerParty));
         }
 
         for (GameCharacter player : playerParty) {
             player.recover();
         }
-    }
-
-    private boolean playersAliveInBothParties() {
-        return anyAlive(playerParty) && anyAlive(enemyParty);
     }
 
     private void printGameCharacters(List<GameCharacter> characters, int startIndex) {
@@ -119,7 +113,7 @@ public class Game {
         }
     }
 
-    private GameCharacter selectRandom(List<GameCharacter> characters) {
+    private GameCharacter selectRandomCharacter(List<GameCharacter> characters) {
         List<GameCharacter> alive = characters.stream().filter(GameCharacter::isAlive).collect(toList());
         return alive.get(rand.nextInt(alive.size()));
     }
@@ -130,6 +124,10 @@ public class Game {
             System.out.println(target.getName().toUpperCase() + " DEFEATED");
         }
         System.out.println();
+    }
+
+    private boolean playersAliveInBothParties() {
+        return anyAlive(playerParty) && anyAlive(enemyParty);
     }
 
     private boolean anyAlive(List<GameCharacter> characters) {
