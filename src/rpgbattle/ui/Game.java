@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import rpgbattle.model.GameCharacter;
+import rpgbattle.model.Weapon;
 
 public class Game {
     private static final String GAME_TITLE = "Final MacBattle XIV: Bagpipe of Time";
@@ -22,9 +23,9 @@ public class Game {
 
     private Game() {
         playerParty = new ArrayList<>();
-        playerParty.add(new GameCharacter("Scottie", 500, 0, 10, 15, 0, 0));
-        playerParty.add(new GameCharacter("President", 400, 40, 0, 0, 100, 10));
-        playerParty.add(new GameCharacter("Provost", 300, 0, 20, 40, 0, 0));
+        playerParty.add(new GameCharacter("Scottie", 500, 0, new Weapon(10, 15, 0, 0)));
+        playerParty.add(new GameCharacter("President", 400, 40, new Weapon(0, 0, 100, 10)));
+        playerParty.add(new GameCharacter("Provost", 300, 0, new Weapon(20, 40, 0, 0)));
 
         level = 0;
         enemyParty = List.of();  // empty list triggers immediate level-up when game begins
@@ -89,7 +90,7 @@ public class Game {
                     "%3d ❤️ / %3d ⚡️  |  %s\n",
                     character.getHitPoints(),
                     character.getEnergy(),
-                    character.getWeaponDescription());
+                    character.getWeapon().getDescription());
             } else {
                 System.out.println("DEFEATED");
             }
@@ -158,17 +159,19 @@ public class Game {
                 generateRandomName(),
                 randInt(10, 20 + level * 4),
                 10 + level * 2,
-                0, 0, 
-                minAttack * 3,
-                randInt(10, 20));
+                new Weapon(
+                    0, 0, 
+                    minAttack * 3,
+                    randInt(10, 20)));
         } else {
             return new GameCharacter(  // sword attack
                 generateRandomName(),
                 randInt(10, 20 + level * 4),
                 0,
-                minAttack,
-                minAttack + randInt(0, level),
-                0, 0);
+                new Weapon(
+                    minAttack,
+                    minAttack + randInt(0, level),
+                    0, 0));
         }
     }
 

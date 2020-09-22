@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameCharacterTest {
 
     private GameCharacter
-        sally  = new GameCharacter("Sally", 100, 10, 0, 0, 15, 7),
-        marvin = new GameCharacter("Marvin", 50, 3, 5, 10, 0, 0);
+        sally  = new GameCharacter("Sally", 100, 10, new Weapon(0, 0, 15, 7)),
+        marvin = new GameCharacter("Marvin", 50, 3, new Weapon(5, 10, 0, 0));
 
     @Test
     void fireballAttack() {
